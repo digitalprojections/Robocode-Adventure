@@ -27,7 +27,7 @@ const getBlockStyles = (type: BlockType) => {
   }
 };
 
-const BlockIcon: React.FC<{ type: BlockType; className?: string }> = ({ type, className = "w-1/2 h-1/2" }) => {
+const BlockIcon: React.FC<{ type: BlockType; className?: string }> = ({ type, className = "w-1/4 h-1/4" }) => {
   const iconProps = { strokeWidth: 3, className: "w-full h-full" };
   const wrapperClass = `flex items-center justify-center ${className}`;
   switch (type) {
@@ -40,12 +40,12 @@ const BlockIcon: React.FC<{ type: BlockType; className?: string }> = ({ type, cl
   }
 };
 
-const Block: React.FC<BlockProps> = ({ 
-  block, 
-  type, 
-  isTemplate, 
-  onAdd, 
-  onRemove, 
+const Block: React.FC<BlockProps> = ({
+  block,
+  type,
+  isTemplate,
+  onAdd,
+  onRemove,
   onUpdateValue,
   isActive,
   isSelected,
@@ -66,7 +66,7 @@ const Block: React.FC<BlockProps> = ({
   const isRepeat = type === BlockType.REPEAT;
 
   return (
-    <div 
+    <div
       className={`
         ${styles} text-white rounded-md shadow-sm flex flex-col items-center justify-center 
         transition-all active:scale-95 relative border-b-2 w-full h-full
@@ -99,17 +99,17 @@ const Block: React.FC<BlockProps> = ({
                 </div>
               )}
             </div>
-            
+
             {/* Repeat Counter */}
             <div className="bg-black/20 rounded-sm px-0.5 py-0 flex items-center justify-center h-2.5">
-               <select 
-                  value={block?.value || 2}
-                  onChange={(e) => { e.stopPropagation(); onUpdateValue?.(parseInt(e.target.value)); }}
-                  className="bg-transparent text-[6px] font-bold text-white border-none p-0 h-2 leading-none focus:ring-0 appearance-none text-center w-full"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {[2, 3, 4, 5].map(v => <option key={v} value={v} className="text-black">{v}x</option>)}
-                </select>
+              <select
+                value={block?.value || 2}
+                onChange={(e) => { e.stopPropagation(); onUpdateValue?.(parseInt(e.target.value)); }}
+                className="bg-transparent text-[6px] font-bold text-white border-none p-0 h-2 leading-none focus:ring-0 appearance-none text-center w-full"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {[2, 3, 4, 5].map(v => <option key={v} value={v} className="text-black">{v}x</option>)}
+              </select>
             </div>
           </div>
         </>
@@ -117,7 +117,7 @@ const Block: React.FC<BlockProps> = ({
 
       {/* Remove Button - Scaled down for tiny blocks */}
       {!isTemplate && onRemove && (
-        <button 
+        <button
           onClick={(e) => { e.stopPropagation(); onRemove(); }}
           className="absolute -top-1 -right-1 bg-rose-500 text-white rounded-full w-3.5 h-3.5 flex items-center justify-center text-[7px] font-bold shadow-sm border border-white transition-transform hover:scale-110 active:scale-125 z-20"
         >

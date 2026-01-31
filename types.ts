@@ -23,6 +23,13 @@ export interface RobotState {
   color: string;
 }
 
+export interface MissionConfig {
+  gridSize: number;
+  items: Position[];
+  obstacles?: Position[];
+  robots: RobotState[];
+}
+
 export interface GameState {
   robots: RobotState[];
   collectedItems: number;
@@ -30,6 +37,7 @@ export interface GameState {
   message: string;
   level: number;
   items: Position[];
+  obstacles: Position[];
   gridSize: number;
   theme: GameTheme;
 }

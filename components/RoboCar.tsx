@@ -24,7 +24,7 @@ const RoboCar: React.FC<RoboCarProps> = ({ pos, direction, cellSize, id }) => {
   const eyeClasses = id === 'BLUE' ? 'border-blue-300' : 'border-rose-300';
 
   return (
-    <div 
+    <div
       className="absolute transition-all duration-500 ease-in-out z-20 flex items-center justify-center"
       style={{
         left: pos.x * cellSize,
@@ -34,7 +34,10 @@ const RoboCar: React.FC<RoboCarProps> = ({ pos, direction, cellSize, id }) => {
         transform: getRotation()
       }}
     >
-      <div className={`relative w-4/5 h-4/5 ${colorClasses} rounded-xl border-4 shadow-xl overflow-hidden flex items-center justify-center`}>
+      <div
+        className={`relative w-4/5 h-4/5 ${colorClasses} rounded-xl shadow-xl overflow-hidden flex items-center justify-center`}
+        style={{ borderWidth: Math.max(2, cellSize * 0.08) }}
+      >
         {/* Wheels */}
         <div className="absolute top-0 left-0 w-2 h-2 bg-gray-800 rounded-full"></div>
         <div className="absolute top-0 right-0 w-2 h-2 bg-gray-800 rounded-full"></div>
@@ -42,8 +45,8 @@ const RoboCar: React.FC<RoboCarProps> = ({ pos, direction, cellSize, id }) => {
         <div className="absolute bottom-0 right-0 w-2 h-2 bg-gray-800 rounded-full"></div>
         {/* Eyes/Windshield */}
         <div className={`w-3/4 h-1/4 bg-cyan-100 rounded-sm mb-2 border ${eyeClasses} flex justify-around px-1`}>
-           <div className="w-1 h-1 bg-black rounded-full self-center"></div>
-           <div className="w-1 h-1 bg-black rounded-full self-center"></div>
+          <div className="w-1 h-1 bg-black rounded-full self-center"></div>
+          <div className="w-1 h-1 bg-black rounded-full self-center"></div>
         </div>
       </div>
     </div>

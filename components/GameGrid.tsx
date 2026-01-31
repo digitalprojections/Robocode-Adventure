@@ -11,22 +11,28 @@ interface GameGridProps {
 
 const GameGrid: React.FC<GameGridProps> = ({ gameState, cellSize, theme }) => {
   return (
-    <div 
-      className={`grid-pattern border-4 ${gameState.theme === 'SPACE' ? 'border-indigo-900' : gameState.theme === 'CONSTRUCTION' ? 'border-slate-600' : 'border-slate-300'} rounded-2xl relative shadow-2xl overflow-hidden ${theme.grid}`} 
-      style={{ 
-          width: gameState.gridSize * cellSize + 4, 
-          height: gameState.gridSize * cellSize + 4,
-          backgroundSize: `${cellSize}px ${cellSize}px`,
-          backgroundImage: `linear-gradient(to right, ${gameState.theme === 'SPACE' ? '#334155' : gameState.theme === 'CONSTRUCTION' ? '#94a3b8' : '#cbd5e1'} 1px, transparent 1px), linear-gradient(to bottom, ${gameState.theme === 'SPACE' ? '#334155' : gameState.theme === 'CONSTRUCTION' ? '#94a3b8' : '#cbd5e1'} 1px, transparent 1px)`
+    <div
+      className={`grid-pattern border-4 ${gameState.theme === 'SPACE' ? 'border-indigo-900' : gameState.theme === 'CONSTRUCTION' ? 'border-slate-600' : 'border-slate-300'} rounded-2xl relative shadow-2xl overflow-hidden ${theme.grid}`}
+      style={{
+        width: gameState.gridSize * cellSize + 4,
+        height: gameState.gridSize * cellSize + 4,
+        backgroundSize: `${cellSize}px ${cellSize}px`,
+        backgroundImage: `linear-gradient(to right, ${gameState.theme === 'SPACE' ? '#334155' : gameState.theme === 'CONSTRUCTION' ? '#94a3b8' : '#cbd5e1'} 1px, transparent 1px), linear-gradient(to bottom, ${gameState.theme === 'SPACE' ? '#334155' : gameState.theme === 'CONSTRUCTION' ? '#94a3b8' : '#cbd5e1'} 1px, transparent 1px)`
       }}
     >
-        {gameState.items.map((item, i) => (
-            <div key={i} className="absolute z-10 text-xl animate-bounce-slow flex items-center justify-center" 
-              style={{ left: item.x * cellSize, top: item.y * cellSize, width: cellSize, height: cellSize }}>{theme.emoji}</div>
-        ))}
-        {gameState.robots.map(robot => (
-            <RoboCar key={robot.id} pos={robot.pos} direction={robot.direction} cellSize={cellSize} id={robot.id} />
-        ))}
+      {gameState.items.map((item, i) => (
+        <div key={`item-${i}`} className="absolute z-10 text-xl animate-bounce-slow flex items-center justify-center"
+          style={{ left: item.x * cellSize, top: item.y * cellSize, width: cellSize, height: cellSize }}>{theme.emoji}</div>
+      ))}
+      {gameState.obstacles?.map((obs, i) => (
+        <div key={`obs-${i}`} className="absolute z-10 text-xl flex items-center justify-center grayscale contrast-125"
+          style={{ left: obs.x * cellSize, top: obs.y * cellSize, width: cellSize, height: cellSize }}>
+          {gameState.theme === 'SPACE' ? '🪨' : gameState.theme === 'CONSTRUCTION' ? '🚧' : gameState.theme === 'OCEAN' ? '🪸' : '🪨'}
+        </div>
+      ))}
+      {gameState.robots.map(robot => (
+        <RoboCar key={robot.id} pos={robot.pos} direction={robot.direction} cellSize={cellSize} id={robot.id} />
+      ))}
     </div>
   );
 };
