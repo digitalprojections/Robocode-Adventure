@@ -31,6 +31,33 @@ const App: React.FC = () => {
   const [level, setLevel] = useState(0);
   const [customLevelData, setCustomLevelData] = useState<CustomLevel | null>(null);
   const { getSavedLevel, saveProgress } = useGameProgress();
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
+
+  React.useEffect(() => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio('/RoboCoder.mp3');
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.4;
+    }
+
+    const audio = audioRef.current;
+    const shouldPlay = view !== 'GAME';
+
+    if (shouldPlay) {
+      // Attempt to play, catching autoplay block errors
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(_ => {
+          // Play started
+        }).catch(error => {
+          console.log("Audio autoplay prevented:", error);
+        });
+      }
+    } else {
+      audio.pause();
+      audio.currentTime = 0; // Optional: restart from beginning or just pause? Request says "play when user is on main menu... but not when game is started". Does resuming make sense? Usually looping bgm resumes or restarts. Let's just pause.
+    }
+  }, [view]);
 
   React.useEffect(() => {
     if (view === 'GAME' && !customLevelData) {
